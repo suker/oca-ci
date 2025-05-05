@@ -1,6 +1,8 @@
 name: ci
 
 on:
+  workflow_dispatch:
+  # Triggered by a push to the master branch
   push:
     branches:
       - master
