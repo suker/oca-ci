@@ -1,0 +1,23 @@
+#!/bin/bash
+# Script to extend ADDONS_PATH with zhintek-submodules
+
+set -ex
+# Path to the cloned submodules
+
+git clone $1 --depth 1 /mnt/extra-addons/submodules
+
+cd /mnt/extra-addons/submodules
+git submodule update --init --recursive --depth 1 --shallow-submodules
+
+# Listar todos los directorios (submódulos) de primer nivel y crear una lista separada por comas
+submodules_list=$(find "$SUBMODULES_BASE" -mindepth 1 -maxdepth 1 -type d | paste -sd, -)
+
+echo "Submódulos encontrados: $submodules_list"
+
+# Check if the directory exists
+if [ -d "$submodules_list" ]; then
+    export ADDONS_PATH="$ADDONS_PATH,$submodules_list"
+else
+    echo "Error: $submodules_list does not exist."
+    exit 1
+fi

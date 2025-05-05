@@ -154,23 +154,9 @@ ENV PGDATABASE=odoo
 ENV PIP_INDEX_URL=https://wheelhouse.odoo-community.org/oca-simple-and-pypi
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_PYTHON_VERSION_WARNING=1
-
-# Clonar el repositorio que contiene submódulos (repositorio de addons externos)
-
-ARG GITHUB_USERNAME
-ARG GITHUB_TOKEN
-
-ARG SUBMODULES_REPO=https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/zhintek/zhintek-submodules.git
-ARG SUBMODULES_DEST=/opt/submodules
-
-RUN git clone --recursive ${SUBMODULES_REPO} ${SUBMODULES_DEST} \
-    && cd ${SUBMODULES_DEST} \
-    && git submodule update --init --recursive --depth 1 --shallow-submodules
-    
-RUN SUBMODULE_DIRS=$(find ${SUBMODULES_DEST} -mindepth 1 -maxdepth 1 -type d | paste -sd, -) \
-    && echo "Submódulos encontrados: ${SUBMODULE_DIRS}"
 # Control addons discovery. INCLUDE and EXCLUDE are comma-separated list of
 # addons to include (default: all) and exclude (default: none)
+ENV SUBMODULES_PATH=
 ENV ADDONS_DIR=.
 ENV ADDONS_PATH=/opt/odoo/addons
 ENV INCLUDE=
