@@ -156,7 +156,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_PYTHON_VERSION_WARNING=1
 
 # Clonar el repositorio que contiene submódulos (repositorio de addons externos)
-ARG SUBMODULES_REPO=https://github.com/zhintek/repositorio-con-submodulos.git
+ARG SUBMODULES_REPO=https://github.com/zhintek/zhintek-submodules.git
 ARG SUBMODULES_DEST=/opt/submodules
 
 RUN git clone --recursive ${SUBMODULES_REPO} ${SUBMODULES_DEST} \
