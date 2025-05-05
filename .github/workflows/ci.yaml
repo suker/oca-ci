@@ -60,6 +60,8 @@ jobs:
             odoo_version=${{ matrix.odoo_version }}
             odoo_org_repo=${{ matrix.odoo_org_repo }}
             setuptools_constraint=${{ matrix.setuptools_constraint }}
+            github_username=${{ github.repository_owner }}
+            github_token=${{ secrets.GITHUB_TOKEN }}
           tags: |
             ghcr.io/oca/oca-ci/${{ matrix.image_name }}:latest
           labels: |
