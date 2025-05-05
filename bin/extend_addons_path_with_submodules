@@ -1,0 +1,19 @@
+#!/bin/bash
+# Script to extend ADDONS_PATH with zhintek-submodules
+set -ex
+
+# Listar todos los directorios (submódulos) de primer nivel y crear una lista separada por comas
+submodules_list=$(find "$SUBMODULES_PATH" -mindepth 1 -maxdepth 1 -type d \
+  ! -name ".git" \
+  -exec sh -c 'ls -A "{}" | grep -q .' \; -print | paste -sd, -)
+
+echo "Submódulos encontrados: $submodules_list"
+
+# Check if the directory exists
+if [ -n "$submodules_list" ]; then
+    export ADDONS_PATH="$ADDONS_PATH,$submodules_list"
+    echo "ADDONS_PATH=$ADDONS_PATH" >> $GITHUB_ENV
+else
+    echo "Error: $submodules_list does not exist."
+    exit 1
+fi
