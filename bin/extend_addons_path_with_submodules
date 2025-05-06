@@ -7,7 +7,7 @@ set -ex
 git clone $1 --depth 1 /mnt/extra-addons/submodules
 
 cd /mnt/extra-addons/submodules
-git submodule update --init --recursive --depth 1 --shallow-submodules
+git submodule update --init --recursive --depth 1
 
 # Listar todos los directorios (submódulos) de primer nivel y crear una lista separada por comas
 submodules_list=$(find "$SUBMODULES_BASE" -mindepth 1 -maxdepth 1 -type d | paste -sd, -)
